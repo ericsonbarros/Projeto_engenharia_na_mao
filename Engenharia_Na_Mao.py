@@ -42,7 +42,7 @@ if opc == '1':
     if opc == '1':
         uteis.cabeçalho('Revestimento Piso')
 
-        # Opçao se o Usuario tiver a área do piso
+        # Opçao para verificar se o Usuario possui a área do piso
         opc_1 = str(input('Possui a area do piso?[SIM/NAO] ')).strip().upper()[0]
         while opc_1 not in 'SN':
             print('\033[31mERRO! Digite um codigo valido.\033[m')
@@ -65,6 +65,11 @@ if opc == '1':
                 # Calculo de quantidade de porcelanato
                 print(f'Se a área do piso possui {resp_area}m² e o rendimento do material é {resp_area_ceramico}\n'
                       f'sera necesasrio {uteis.piso(resp_area, resp_area_ceramico)} caixa para resvestir toda a área desejavel')
+
+            if resp_ceramico == 'N':
+                print(uteis.areaRevestimmento())
+
+
 
 
     # Opção 2 - Revestimento ceramico - Parede
