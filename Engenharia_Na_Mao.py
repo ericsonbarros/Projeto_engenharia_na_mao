@@ -33,7 +33,7 @@ if opc == '1':
     for c,s in enumerate(ceramico):
         print(f'{c+1:>5}{s:>30}')
     print(uteis.linha())
-    opc = str(input('Digite o codigo do serviço que deseja acessar:'))
+    opc = str(input('Digite o codigo do serviço que deseja acessar: '))
     while opc not in '12':
         print('\033[31mERRO! Digite um codigo valido.\033[m')
         opc = str(input('Digite o codigo do serviço que deseja acessar: '))
@@ -47,6 +47,7 @@ if opc == '1':
         while opc_1 not in 'SN':
             print('\033[31mERRO! Digite um codigo valido.\033[m')
             opc_1 = str(input('Possui a area do piso?[SIM/NAO] ')).strip().upper()[0]
+
         # Usuario POSSUI A ÁREA
         if opc_1 == 'S':
             resp_area = float(input('Digite a area do piso(m²): '))
@@ -57,30 +58,65 @@ if opc == '1':
             while resp_ceramico not in 'SN':
                 print('\033[31mERRO! Digite um codigo valido.\033[m')
                 resp_ceramico = str(input('Possui o rendimento do material por caixa?[SIM/NAO]: ')).strip().upper()[0]
-                # Usuario POSSUI O RENDIMENTO
+
+            # Usuario POSSUI O RENDIMENTO
             if resp_ceramico == 'S':
                 resp_area_ceramico = float(input('Digite o rendimento por caixa(m²): '))
                 print(uteis.linha())
 
-                # Calculo de quantidade de porcelanato
+                # Calculo de quantidade de caixas de material
                 print(f'Se a área do piso possui {resp_area}m² e o rendimento do material é {resp_area_ceramico}\n'
-                      f'sera necesasrio {uteis.piso(resp_area, resp_area_ceramico)} caixa para resvestir toda a área desejavel')
+                      f'sera necessário {uteis.piso(resp_area, resp_area_ceramico)} caixa para resvestir toda a área desejavel')
 
+            # Usuario não possui o rendimento
             if resp_ceramico == 'N':
-                print(uteis.areaRevestimmento())
+                area_peca = uteis.areaRevestimmento()
+                print(uteis.linha())
 
+                # Calculo de quantidade de peças de material
+                print(f'Se a área do piso possui {resp_area}m² e a área da peça de revestimento tem {area_peca}m²')
+                print(f'Sera necessário {uteis.piso(resp_area, float(area_peca))} peças para resvestir toda a área desejavel')
+
+        # Usuario NÃO POSSUI A ÁREA
+        if opc_1 == 'N':
+            area = uteis.area()
+            print(uteis.linha())
+
+            # Verificação se o usuario possui rendimento do material utilizado
+            material = str(input('Possui o rendimento do material por caixa?[SIM/NAO]: ')).strip().upper()[0]
+            while material not in 'SN':
+                print('\033[31mERRO! Digite um codigo valido.\033[m')
+                material = str(input('Possui o rendimento do material por caixa?[SIM/NAO]: ')).strip().upper()[0]
+
+            # Usuario POSSUI O RENDIMENTO
+            if material == 'S':
+                resp_area_ceramico = float(input('Digite o rendimento por caixa(m²): '))
+                print(uteis.linha())
+
+                # Calculo de quantidade de caixas de material
+                print(f'Se a área do piso possui {area}m² e o rendimento do material é {resp_area_ceramico}\n'
+                      f'sera necessário {uteis.piso(float(area), resp_area_ceramico)} caixa para resvestir toda a área desejavel')
+
+            # Usuario não possui o rendimento
+            if material == 'N':
+                area_peca = uteis.areaRevestimmento()
+                print(uteis.linha())
+
+                # Calculo de quantidade de peças de material
+                print(f'Se a área do piso possui {area}m² e a área da peça de revestimento tem {area_peca}m²')
+                print(f'Sera necessário {uteis.piso(float(area), float(area_peca))} peças para resvestir toda a área desejavel')
 
 
 
     # Opção 2 - Revestimento ceramico - Parede
     if opc == '2':
         uteis.cabeçalho('Revestimento Parede')
+        print(uteis.linha())
+
+
+
 
 
 #Opção 2 - Pintura
 if opc == '2':
     print('pintura')
-
-
-
-
